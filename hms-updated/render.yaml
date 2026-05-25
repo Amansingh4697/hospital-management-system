@@ -40,3 +40,32 @@ services:
 
     # Environment: production
     env: production
+
+  # ────────────────────────────────────────────────────────────
+  # Frontend Service
+  # ────────────────────────────────────────────────────────────
+  - type: web
+    name: hospital-frontend
+    runtime: docker
+    rootDir: hms-updated/frontend
+    region: singapore
+    plan: starter
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: VITE_API_URL
+        value: https://hospital-backend-uu07.onrender.com
+
+    # Health check configuration for Render
+    healthCheckPath: /
+    healthCheckProtocol: http
+    healthCheckTimeout: 10
+    healthCheckInterval: 30
+
+    # Build command (handled by Dockerfile)
+    buildCommand: npm install && npm run build
+
+    # Auto-deploy on push to main branch
+    autoDeploy: true
+
+    # Environment: production
+    env: production
