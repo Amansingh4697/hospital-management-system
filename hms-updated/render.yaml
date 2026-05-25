@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: hospital-backend
+    runtime: docker
+    rootDir: hms-updated/backend
+    region: singapore
+    plan: starter
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: MONGO_URI
+        sync: false
+        # Set this to your MongoDB Atlas connection string
+        # Format: mongodb+srv://user:password@cluster.mongodb.net/database
+      - key: MONGO_DB
+        value: hospital_db
+      - key: JWT_SECRET
+        sync: false
+        # Generate a strong random secret key (minimum 32 characters)
+        # Example: openssl rand -base64 32
+      - key: PORT
+        value: 8080
+      - key: FRONTEND_URL
+        value: http://localhost:5173
+        # Update this to your deployed frontend URL
+
+    # Health check configuration for Render
+    healthCheckPath: /api/health
+    healthCheckProtocol: http
+    healthCheckTimeout: 10
+    healthCheckInterval: 30
+
+    # Build command
+    buildCommand: mvn clean package -DskipTests
+
+    # Start command - optimized for container
+    startCommand: java -XX:+UseG1GC -XX:MaxRAMPercentage=75.0 -jar target/backend-0.0.1-SNAPSHOT.jar
+
+    # Auto-deploy on push to main branch
+    autoDeploy: true
+
+    # Environment: production
+    env: production

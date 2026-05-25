@@ -1,0 +1,36 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary:   #2563eb;
+  --primary-h: #1d4ed8;
+  --success:   #16a34a;
+  --danger:    #dc2626;
+  --warning:   #d97706;
+  --bg:        #f1f5f9;
+  --card:      #ffffff;
+  --border:    #e2e8f0;
+  --text:      #1e293b;
+  --muted:     #64748b;
+  --sidebar-w: 240px;
+  --radius:    10px;
+  --shadow:    0 1px 4px rgba(0,0,0,.08);
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+}
+
+button { cursor: pointer; font-family: inherit; }
+input, select, textarea {
+  font-family: inherit;
+  outline: none;
+}
+a { text-decoration: none; color: inherit; }
+
+/* scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9px; }
